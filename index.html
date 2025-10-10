@@ -492,10 +492,30 @@
             populateGifts();
 
             const swiper = new Swiper('.mySwiper', {
-                slidesPerView: 1.2, spaceBetween: 20, centeredSlides: true, loop: true,
-                pagination: { el: '.swiper-pagination', clickable: true },
-                navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
-                breakpoints: { 768: { slidesPerView: 2.5, spaceBetween: 30 }, 1024: { slidesPerView: 3.5, spaceBetween: 40 } }
+                loop: true,
+                slidesPerView: 1.5, // Garante que parte dos slides laterais apareçam
+                spaceBetween: 15,   // Espaço entre os slides
+                centeredSlides: true, // Centraliza o slide ativo
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                breakpoints: {
+                    // Para tablets: mostra 3 slides (1 central, 2 laterais)
+                    768: {
+                        slidesPerView: 3,
+                        spaceBetween: 20,
+                    },
+                    // Para desktops: mostra 5 slides (1 central, 4 laterais)
+                    1024: {
+                        slidesPerView: 5,
+                        spaceBetween: 30,
+                    }
+                }
             });
         });
     </script>
