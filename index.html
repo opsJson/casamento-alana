@@ -158,6 +158,149 @@
         .modal-button.cancel { background-color: #eee; color: #333; }
         .modal-button.confirm { background-color: var(--color-dark); color: #fff; }
 
+        /* --- GALERIA DE FOTOS --- */
+        #gallery {
+            background-color: #fff;
+            padding: 80px 20px;
+        }
+        
+        .gallery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            aspect-ratio: 1/1;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(62, 77, 132, 0.7));
+            padding: 20px;
+            color: white;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+        
+        .gallery-overlay p {
+            margin: 0;
+            font-size: 0.9rem;
+            text-align: left;
+        }
+        
+        /* Modal da Galeria */
+        .gallery-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1100;
+        }
+        
+        .gallery-modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+        
+        .gallery-modal-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 5px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+        }
+        
+        .gallery-modal-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+        
+        .gallery-modal-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background 0.3s;
+        }
+        
+        .gallery-modal-nav:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+        
+        .gallery-modal-prev {
+            left: 20px;
+        }
+        
+        .gallery-modal-next {
+            right: 20px;
+        }
+        
+        .gallery-modal-caption {
+            position: absolute;
+            bottom: -40px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-size: 1rem;
+        }
 
         /* --- ESTILOS EXISTENTES E ADAPTADOS --- */
 
@@ -217,11 +360,63 @@
         .swiper-pagination-bullet-active { background-color: var(--color-dark) !important; }
         .swiper-button-next, .swiper-button-prev { color: var(--color-dark) !important; --swiper-navigation-size: 30px; }
         .swiper-button-next:after, .swiper-button-prev:after { font-size: 30px !important; font-weight: bold; }
-        .donated-by { margin-top: 10px; font-size: 0.9em; color: var(--color-darkest); font-weight: 600; min-height: 20px; }
+        .donated-by { margin-top: 10px; font-size: 0.9em; color: var(--color-darkest); font-weight: 600; min-height: 20px; display: flex; align-items: center; justify-content: center; gap: 5px; }
+        
+        /* Botão de cancelar presente */
+        .cancel-gift {
+            background: none;
+            border: none;
+            color: #ff4444;
+            cursor: pointer;
+            font-size: 1.2em;
+            padding: 0;
+            margin-left: 5px;
+            display: none;
+        }
+        .cancel-gift:hover {
+            color: #cc0000;
+        }
 
-        footer { background-color: var(--color-darkest); color: var(--color-light); padding: 40px 20px; }
-        footer .footer-names { font-family: var(--font-headings); font-size: 1.5rem; margin: 0 0 10px 0; }
-        footer .footer-date { font-family: var(--font-body); font-size: 1rem; margin: 0; font-weight: 300; }
+        footer { 
+			background-color: var(--color-darkest); 
+			color: var(--color-light); 
+			padding: 40px 20px;
+			text-align: center;
+		}
+
+		footer .footer-content {
+			max-width: 1200px;
+			margin: 0 auto;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		footer .footer-names { 
+			font-family: var(--font-headings); 
+			font-size: 1.5rem; 
+			margin: 0 0 10px 0; 
+		}
+		footer .footer-date { 
+			font-family: var(--font-body); 
+			font-size: 1rem; 
+			margin: 0; 
+			font-weight: 300; 
+		}
+
+		/* Media Queries para Telas Maiores (Desktop) */
+		@media (min-width: 768px) {
+			footer .footer-content {
+				flex-direction: row;
+				justify-content: space-between;
+				align-items: center;
+				text-align: left;
+			}
+			
+			footer .footer-names {
+				margin-bottom: 0;
+			}
+		}
 
         /* Media Queries para Telas Maiores (Desktop) */
         @media (min-width: 768px) {
@@ -235,6 +430,10 @@
             .countdown-item .label { font-size: 0.8rem; }
             .event-details-grid { flex-direction: row; justify-content: center; }
             .swiper { padding-bottom: 60px; }
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 25px;
+            }
         }
     </style>
 </head>
@@ -251,6 +450,7 @@
             <div class="nav-logo">A & E</div>
             <div class="nav-links">
                 <a href="#couple" class="nav-link"><i class="bi bi-heart-fill"></i></a>
+                <a href="#gallery" class="nav-link"><i class="bi bi-images"></i></a>
                 <a href="#countdown" class="nav-link"><i class="bi bi-stopwatch-fill"></i></a>
                 <a href="#details" class="nav-link"><i class="bi bi-info-circle-fill"></i></a>
                 <a href="#gifts" class="nav-link"><i class="bi bi-gift-fill"></i></a>
@@ -277,10 +477,22 @@
 
         <section id="couple">
             <h2>Nossa História</h2>
-            <img src="casal.png" alt="Foto do Casal Allana e Elielson" class="couple-photo">
+            <img src="casal.jpeg" alt="Foto do Casal Allana e Elielson" class="couple-photo">
             <p>
                 Bem-vindos ao nosso cantinho! Somos Allana e Elielson, um casal que encontrou no outro a melhor companhia para a vida. Nossa jornada juntos tem sido cheia de risadas, sonhos e muito companheirismo. Agora, estamos prestes a dar o passo mais importante de nossas vidas e gostaríamos de compartilhar essa felicidade com as pessoas que mais amamos.
             </p>
+        </section>
+
+        <!-- GALERIA DE FOTOS -->
+        <section id="gallery">
+            <h2>Nossa Galeria</h2>
+            <p>Alguns momentos especiais da nossa jornada juntos</p>
+            
+            <div class="gallery-container">
+                <div class="gallery-grid" id="gallery-grid">
+                    <!-- As fotos serão adicionadas dinamicamente via JavaScript -->
+                </div>
+            </div>
         </section>
 
         <section id="countdown">
@@ -325,12 +537,15 @@
             </div>
         </section>
 
-        <footer>
-            <p class="footer-names">Allana & Elielson</p>
-            <p class="footer-date">14 de Dezembro de 2025</p>
-        </footer>
+		<footer>
+			<div class="footer-content">
+				<p class="footer-names">Allana & Elielson</p>
+				<p class="footer-date">14 de Dezembro de 2025</p>
+			</div>
+		</footer>
     </main>
 
+    <!-- Modal de Presentes -->
     <div class="modal-overlay" id="gift-modal">
         <div class="modal-content">
             <h3>Registrar Presente</h3>
@@ -345,6 +560,21 @@
                     <button type="submit" class="modal-button confirm">Confirmar</button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- Modal da Galeria -->
+    <div class="gallery-modal" id="gallery-modal">
+        <button class="gallery-modal-close" id="gallery-modal-close">&times;</button>
+        <button class="gallery-modal-nav gallery-modal-prev" id="gallery-modal-prev">
+            <i class="bi bi-chevron-left"></i>
+        </button>
+        <button class="gallery-modal-nav gallery-modal-next" id="gallery-modal-next">
+            <i class="bi bi-chevron-right"></i>
+        </button>
+        <div class="gallery-modal-content">
+            <img id="gallery-modal-img" src="" alt="">
+            <div class="gallery-modal-caption" id="gallery-modal-caption"></div>
         </div>
     </div>
 
@@ -365,11 +595,70 @@
             const cancelButton = document.getElementById('cancel-button');
             const selectedGiftInput = document.getElementById('selected-gift-id');
 
+            // --- UUID e localStorage ---
+            let userUUID = localStorage.getItem('wedding_user_uuid');
+            if (!userUUID) {
+                userUUID = generateUUID();
+                localStorage.setItem('wedding_user_uuid', userUUID);
+            }
+
+            // Função para gerar UUID
+            function generateUUID() {
+                return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                    const r = Math.random() * 16 | 0;
+                    const v = c == 'x' ? r : (r & 0x3 | 0x8);
+                    return v.toString(16);
+                });
+            }
+
+            // Função para carregar dados dos presentes do localStorage
+            function loadGiftsData() {
+                const savedGifts = localStorage.getItem('wedding_gifts');
+                return savedGifts ? JSON.parse(savedGifts) : {};
+            }
+
+            // Função para salvar dados dos presentes no localStorage
+            function saveGiftsData(giftsData) {
+                localStorage.setItem('wedding_gifts', JSON.stringify(giftsData));
+            }
+
             // --- LISTA DE PRESENTES (EDITAR AQUI) ---
             const gifts = [
-                { id: 'presente-1', name: 'Presente 1', image: 'https://static.vecteezy.com/ti/vetor-gratis/p1/12902559-ilustracao-de-clipart-colorida-de-desenho-animado-de-presente-gratis-vetor.jpg' },
-                { id: 'presente-2', name: 'Presente 2', image: 'https://static.vecteezy.com/ti/vetor-gratis/p1/12902559-ilustracao-de-clipart-colorida-de-desenho-animado-de-presente-gratis-vetor.jpg' },
-                { id: 'presente-3', name: 'Presente 3', image: 'https://static.vecteezy.com/ti/vetor-gratis/p1/12902559-ilustracao-de-clipart-colorida-de-desenho-animado-de-presente-gratis-vetor.jpg' },
+                { id: 'presente-1', name: 'Chaleira', image: 'presentes/chaleira.jpeg' },
+                { id: 'presente-2', name: 'Liquidificador', image: 'presentes/liquidificador.jpeg' },
+                { id: 'presente-3', name: 'Bowls', image: 'presentes/bowls.jpeg' },
+				{ id: 'presente-4', name: 'Espelho', image: 'presentes/espelho.jpeg' },
+				{ id: 'presente-5', name: 'Air Fryer', image: 'presentes/airfryer.jpeg' },
+				{ id: 'presente-6', name: 'Ferro de Passar', image: 'presentes/ferro.jpeg' },
+				{ id: 'presente-7', name: 'Frigideira', image: 'presentes/frigideira.jpeg' },
+				{ id: 'presente-8', name: 'Fruteira', image: 'presentes/fruteira.jpeg' },
+				{ id: 'presente-9', name: 'Jogo de Cama King', image: 'presentes/king.jpeg' },
+				{ id: 'presente-10', name: 'Mop de Limpeza', image: 'presentes/mop.jpeg' },
+				{ id: 'presente-11', name: 'Jogo de Panelas', image: 'presentes/panelas.jpeg' },
+				{ id: 'presente-12', name: 'Sanduicheira', image: 'presentes/sanduicheira.jpeg' },
+				{ id: 'presente-13', name: 'Toalhas', image: 'presentes/toalhas.jpeg' },
+				{ id: 'presente-14', name: 'Louças', image: 'presentes/louça.jpeg' },
+				{ id: 'presente-15', name: 'Jogo de Assadeiras', image: 'presentes/assadeiras.jpeg' },
+            ];
+
+            // --- GALERIA DE FOTOS (EDITAR AQUI) ---
+            const galleryPhotos = [
+                { 
+                    src: 'galeria/casal.jpeg', 
+                    caption: '' 
+                },
+                { 
+                    src: 'galeria/allana.jpeg', 
+                    caption: '' 
+                },
+                { 
+                    src: 'galeria/eli.jpeg', 
+                    caption: '' 
+                },
+                { 
+                    src: 'galeria/mao.jpeg', 
+                    caption: '' 
+                },
             ];
 
             // --- Lógica da Tela de Entrada e Música ---
@@ -412,40 +701,72 @@
                 document.getElementById('minutes').innerText = formatTime(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)));
                 document.getElementById('seconds').innerText = formatTime(Math.floor((distance % (1000 * 60)) / 1000));
             }, 1000);
-
-            // --- Lógica dos Presentes (Dinâmico + Modal) ---
-            function populateGifts() {
-                const wrapper = document.getElementById('gift-swiper-wrapper');
-                wrapper.innerHTML = '';
-                gifts.forEach(gift => {
-                    const slide = `
-                        <div class="swiper-slide">
-                            <img src="${gift.image}" alt="${gift.name}">
-                            <div class="gift-info">
-                                <h4>${gift.name}</h4>
-                                <div>
-                                    <p class="donated-by" data-gift-id="${gift.id}"></p>
-                                    <a class="gift-link" data-gift-id="${gift.id}">Presentear</a>
-                                </div>
-                            </div>
-                        </div>`;
-                    wrapper.innerHTML += slide;
-                });
-                updateGiftStatus();
-                addGiftClickListeners();
-            }
+			
+			function populateGifts() {
+				const wrapper = document.getElementById('gift-swiper-wrapper');
+				wrapper.innerHTML = '';
+				
+				// Embaralhar a lista de presentes
+				const shuffledGifts = [...gifts].sort(() => Math.random() - 0.5);
+				
+				shuffledGifts.forEach(gift => {
+					const slide = `
+						<div class="swiper-slide">
+							<img src="${gift.image}" alt="${gift.name}">
+							<div class="gift-info">
+								<h4>${gift.name}</h4>
+								<div>
+									<p class="donated-by" data-gift-id="${gift.id}"></p>
+									<a class="gift-link" data-gift-id="${gift.id}">Presentear</a>
+								</div>
+							</div>
+						</div>`;
+					wrapper.innerHTML += slide;
+				});
+				updateGiftStatus();
+				addGiftClickListeners();
+			}
             
             function updateGiftStatus() {
+                const giftsData = loadGiftsData();
+                
                 gifts.forEach(gift => {
-                    const donorName = localStorage.getItem(`gift_${gift.id}_donor`);
-                    if (donorName) {
-                        const p = document.querySelector(`.donated-by[data-gift-id="${gift.id}"]`);
-                        const link = document.querySelector(`.gift-link[data-gift-id="${gift.id}"]`);
-                        if (p) p.textContent = `Presenteado por: ${donorName}`;
+                    const giftData = giftsData[gift.id];
+                    const p = document.querySelector(`.donated-by[data-gift-id="${gift.id}"]`);
+                    const link = document.querySelector(`.gift-link[data-gift-id="${gift.id}"]`);
+                    
+                    if (giftData && giftData.donorName) {
+                        // Presente já foi dado
+                        if (p) {
+                            p.innerHTML = `Presenteado por: ${giftData.donorName}`;
+                            
+                            // Adicionar botão X se o presente foi dado pelo usuário atual
+                            if (giftData.donorUUID === userUUID) {
+                                const cancelBtn = document.createElement('button');
+                                cancelBtn.className = 'cancel-gift';
+                                cancelBtn.innerHTML = '<i class="bi bi-x-circle"></i>';
+                                cancelBtn.title = 'Cancelar presente';
+                                cancelBtn.style.display = 'inline';
+                                cancelBtn.addEventListener('click', function(e) {
+                                    e.stopPropagation();
+                                    cancelGift(gift.id);
+                                });
+                                p.appendChild(cancelBtn);
+                            }
+                        }
+                        
                         if (link) {
                             link.textContent = 'Presenteado!';
                             link.style.backgroundColor = 'var(--color-medium)';
                             link.style.pointerEvents = 'none';
+                        }
+                    } else {
+                        // Presente disponível
+                        if (p) p.textContent = '';
+                        if (link) {
+                            link.textContent = 'Presentear';
+                            link.style.backgroundColor = 'var(--color-dark)';
+                            link.style.pointerEvents = 'auto';
                         }
                     }
                 });
@@ -463,6 +784,23 @@
                 });
             }
 
+            // Função para cancelar presente
+            function cancelGift(giftId) {
+                const giftsData = loadGiftsData();
+                
+                if (giftsData[giftId] && giftsData[giftId].donorUUID === userUUID) {
+                    delete giftsData[giftId];
+                    saveGiftsData(giftsData);
+                    updateGiftStatus();
+                    
+                    // Confirmação visual
+                    const giftElement = document.querySelector(`.gift-link[data-gift-id="${giftId}"]`);
+                    if (giftElement) {
+                        giftElement.style.backgroundColor = 'var(--color-dark)';
+                    }
+                }
+            }
+
             cancelButton.addEventListener('click', () => giftModal.style.display = 'none');
             giftModal.addEventListener('click', (e) => {
                 if (e.target === giftModal) giftModal.style.display = 'none';
@@ -472,8 +810,17 @@
                 e.preventDefault();
                 const donorName = document.getElementById('giver-name').value;
                 const giftId = selectedGiftInput.value;
+                
                 if (donorName.trim() && giftId) {
-                    localStorage.setItem(`gift_${giftId}_donor`, donorName.trim());
+                    const giftsData = loadGiftsData();
+                    
+                    // Registrar o presente
+                    giftsData[giftId] = {
+                        donorName: donorName.trim(),
+                        donorUUID: userUUID
+                    };
+                    
+                    saveGiftsData(giftsData);
                     updateGiftStatus();
                     giftModal.style.display = 'none';
                     this.reset();
@@ -488,8 +835,93 @@
                 }
             });
 
+            // --- Lógica da Galeria de Fotos ---
+            function populateGallery() {
+                const galleryGrid = document.getElementById('gallery-grid');
+                galleryGrid.innerHTML = '';
+                
+                galleryPhotos.forEach((photo, index) => {
+                    const galleryItem = document.createElement('div');
+                    galleryItem.className = 'gallery-item';
+                    galleryItem.dataset.index = index;
+                    
+                    galleryItem.innerHTML = `
+                        <img src="${photo.src}" alt="${photo.caption}">
+                        <div class="gallery-overlay">
+                            <p>${photo.caption}</p>
+                        </div>
+                    `;
+                    
+                    galleryGrid.appendChild(galleryItem);
+                });
+                
+                addGalleryClickListeners();
+            }
+            
+            function addGalleryClickListeners() {
+                const galleryItems = document.querySelectorAll('.gallery-item');
+                const galleryModal = document.getElementById('gallery-modal');
+                const galleryModalImg = document.getElementById('gallery-modal-img');
+                const galleryModalCaption = document.getElementById('gallery-modal-caption');
+                const galleryModalClose = document.getElementById('gallery-modal-close');
+                const galleryModalPrev = document.getElementById('gallery-modal-prev');
+                const galleryModalNext = document.getElementById('gallery-modal-next');
+                
+                let currentIndex = 0;
+                
+                galleryItems.forEach(item => {
+                    item.addEventListener('click', function() {
+                        currentIndex = parseInt(this.dataset.index);
+                        openGalleryModal(currentIndex);
+                    });
+                });
+                
+                function openGalleryModal(index) {
+                    galleryModalImg.src = galleryPhotos[index].src;
+                    galleryModalCaption.textContent = galleryPhotos[index].caption;
+                    galleryModal.style.display = 'flex';
+                    currentIndex = index;
+                }
+                
+                galleryModalClose.addEventListener('click', () => {
+                    galleryModal.style.display = 'none';
+                });
+                
+                galleryModal.addEventListener('click', (e) => {
+                    if (e.target === galleryModal) {
+                        galleryModal.style.display = 'none';
+                    }
+                });
+                
+                galleryModalPrev.addEventListener('click', () => {
+                    currentIndex = (currentIndex - 1 + galleryPhotos.length) % galleryPhotos.length;
+                    openGalleryModal(currentIndex);
+                });
+                
+                galleryModalNext.addEventListener('click', () => {
+                    currentIndex = (currentIndex + 1) % galleryPhotos.length;
+                    openGalleryModal(currentIndex);
+                });
+                
+                // Navegação por teclado
+                document.addEventListener('keydown', (e) => {
+                    if (galleryModal.style.display === 'flex') {
+                        if (e.key === 'ArrowLeft') {
+                            currentIndex = (currentIndex - 1 + galleryPhotos.length) % galleryPhotos.length;
+                            openGalleryModal(currentIndex);
+                        } else if (e.key === 'ArrowRight') {
+                            currentIndex = (currentIndex + 1) % galleryPhotos.length;
+                            openGalleryModal(currentIndex);
+                        } else if (e.key === 'Escape') {
+                            galleryModal.style.display = 'none';
+                        }
+                    }
+                });
+            }
+
             // --- Inicialização ---
             populateGifts();
+            populateGallery();
 
             const swiper = new Swiper('.mySwiper', {
                 loop: true,
