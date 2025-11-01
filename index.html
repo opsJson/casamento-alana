@@ -158,6 +158,12 @@
         .modal-button.cancel { background-color: #eee; color: #333; }
         .modal-button.confirm { background-color: var(--color-dark); color: #fff; }
 
+        /* Loading State */
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
         /* --- GALERIA DE FOTOS --- */
         #gallery {
             background-color: #fff;
@@ -584,6 +590,9 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             
+            // --- Configuração da API ---
+            const API_URL = 'https://2ug76lwz62gsx5vj2phddgwnby0blfeh.lambda-url.sa-east-1.on.aws';
+
             // --- Seletores de Elementos ---
             const enterButton = document.getElementById('enter-button');
             const splashScreen = document.getElementById('splash-screen');
@@ -611,34 +620,81 @@
                 });
             }
 
-            // Função para carregar dados dos presentes do localStorage
-            function loadGiftsData() {
-                const savedGifts = localStorage.getItem('wedding_gifts');
-                return savedGifts ? JSON.parse(savedGifts) : {};
+            // --- Funções da API ---
+            async function fetchGiftsFromAPI() {
+                try {
+                    const response = await fetch(`${API_URL}/gifts`);
+                    if (!response.ok) throw new Error('Erro ao buscar presentes');
+                    const giftsData = await response.json();
+                    return giftsData;
+                } catch (error) {
+                    console.error('Erro ao buscar presentes da API:', error);
+                    // Fallback para localStorage em caso de erro
+                    const localGifts = localStorage.getItem('wedding_gifts');
+                    return localGifts ? JSON.parse(localGifts) : {};
+                }
             }
 
-            // Função para salvar dados dos presentes no localStorage
-            function saveGiftsData(giftsData) {
-                localStorage.setItem('wedding_gifts', JSON.stringify(giftsData));
+            async function addGiftToAPI(presenteId, nome, uuid) {
+                try {
+                    const response = await fetch(`${API_URL}/add-gift`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            presenteId: presenteId,
+                            nome: nome,
+                            uuid: uuid
+                        })
+                    });
+                    
+                    const result = await response.json();
+                    return result.success;
+                } catch (error) {
+                    console.error('Erro ao adicionar presente:', error);
+                    return false;
+                }
+            }
+
+            async function removeGiftFromAPI(presenteId, uuid) {
+                try {
+                    const response = await fetch(`${API_URL}/remove-gift`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            presenteId: presenteId,
+                            uuid: uuid
+                        })
+                    });
+                    
+                    const result = await response.json();
+                    return result.success;
+                } catch (error) {
+                    console.error('Erro ao remover presente:', error);
+                    return false;
+                }
             }
 
             // --- LISTA DE PRESENTES (EDITAR AQUI) ---
             const gifts = [
-                { id: 'presente-1', name: 'Chaleira', image: 'presentes/chaleira.jpeg' },
-                { id: 'presente-2', name: 'Liquidificador', image: 'presentes/liquidificador.jpeg' },
-                { id: 'presente-3', name: 'Bowls', image: 'presentes/bowls.jpeg' },
-				{ id: 'presente-4', name: 'Espelho', image: 'presentes/espelho.jpeg' },
-				{ id: 'presente-5', name: 'Air Fryer', image: 'presentes/airfryer.jpeg' },
-				{ id: 'presente-6', name: 'Ferro de Passar', image: 'presentes/ferro.jpeg' },
-				{ id: 'presente-7', name: 'Frigideira', image: 'presentes/frigideira.jpeg' },
-				{ id: 'presente-8', name: 'Fruteira', image: 'presentes/fruteira.jpeg' },
-				{ id: 'presente-9', name: 'Jogo de Cama King', image: 'presentes/king.jpeg' },
-				{ id: 'presente-10', name: 'Mop de Limpeza', image: 'presentes/mop.jpeg' },
-				{ id: 'presente-11', name: 'Jogo de Panelas', image: 'presentes/panelas.jpeg' },
-				{ id: 'presente-12', name: 'Sanduicheira', image: 'presentes/sanduicheira.jpeg' },
-				{ id: 'presente-13', name: 'Toalhas', image: 'presentes/toalhas.jpeg' },
-				{ id: 'presente-14', name: 'Louças', image: 'presentes/louça.jpeg' },
-				{ id: 'presente-15', name: 'Jogo de Assadeiras', image: 'presentes/assadeiras.jpeg' },
+                { id: 'chaleira', name: 'Chaleira', image: 'presentes/chaleira.jpeg' },
+                { id: 'liquidificador', name: 'Liquidificador', image: 'presentes/liquidificador.jpeg' },
+                { id: 'bowls', name: 'Bowls', image: 'presentes/bowls.jpeg' },
+				{ id: 'espelho', name: 'Espelho', image: 'presentes/espelho.jpeg' },
+				{ id: 'airfryer', name: 'Air Fryer', image: 'presentes/airfryer.jpeg' },
+				{ id: 'ferro', name: 'Ferro de Passar', image: 'presentes/ferro.jpeg' },
+				{ id: 'frigideira', name: 'Frigideira', image: 'presentes/frigideira.jpeg' },
+				{ id: 'fruteira', name: 'Fruteira', image: 'presentes/fruteira.jpeg' },
+				{ id: 'king', name: 'Jogo de Cama King', image: 'presentes/king.jpeg' },
+				{ id: 'mop', name: 'Mop de Limpeza', image: 'presentes/mop.jpeg' },
+				{ id: 'panelas', name: 'Jogo de Panelas', image: 'presentes/panelas.jpeg' },
+				{ id: 'sanduicheira', name: 'Sanduicheira', image: 'presentes/sanduicheira.jpeg' },
+				{ id: 'toalhas', name: 'Toalhas', image: 'presentes/toalhas.jpeg' },
+				{ id: 'loucas', name: 'Louças', image: 'presentes/louça.jpeg' },
+				{ id: 'assadeiras', name: 'Jogo de Assadeiras', image: 'presentes/assadeiras.jpeg' },
             ];
 
             // --- GALERIA DE FOTOS (EDITAR AQUI) ---
@@ -702,7 +758,7 @@
                 document.getElementById('seconds').innerText = formatTime(Math.floor((distance % (1000 * 60)) / 1000));
             }, 1000);
 			
-			function populateGifts() {
+			async function populateGifts() {
 				const wrapper = document.getElementById('gift-swiper-wrapper');
 				wrapper.innerHTML = '';
 				
@@ -723,53 +779,57 @@
 						</div>`;
 					wrapper.innerHTML += slide;
 				});
-				updateGiftStatus();
+				await updateGiftStatus();
 				addGiftClickListeners();
 			}
             
-            function updateGiftStatus() {
-                const giftsData = loadGiftsData();
-                
-                gifts.forEach(gift => {
-                    const giftData = giftsData[gift.id];
-                    const p = document.querySelector(`.donated-by[data-gift-id="${gift.id}"]`);
-                    const link = document.querySelector(`.gift-link[data-gift-id="${gift.id}"]`);
+            async function updateGiftStatus() {
+                try {
+                    const giftsData = await fetchGiftsFromAPI();
                     
-                    if (giftData && giftData.donorName) {
-                        // Presente já foi dado
-                        if (p) {
-                            p.innerHTML = `Presenteado por: ${giftData.donorName}`;
+                    gifts.forEach(gift => {
+                        const giftData = giftsData[gift.id];
+                        const p = document.querySelector(`.donated-by[data-gift-id="${gift.id}"]`);
+                        const link = document.querySelector(`.gift-link[data-gift-id="${gift.id}"]`);
+                        
+                        if (giftData && giftData.donorName) {
+                            // Presente já foi dado
+                            if (p) {
+                                p.innerHTML = `Presenteado por: ${giftData.donorName}`;
+                                
+                                // Adicionar botão X se o presente foi dado pelo usuário atual
+                                if (giftData.donorUUID === userUUID) {
+                                    const cancelBtn = document.createElement('button');
+                                    cancelBtn.className = 'cancel-gift';
+                                    cancelBtn.innerHTML = '<i class="bi bi-x-circle"></i>';
+                                    cancelBtn.title = 'Cancelar presente';
+                                    cancelBtn.style.display = 'inline';
+                                    cancelBtn.addEventListener('click', function(e) {
+                                        e.stopPropagation();
+                                        cancelGift(gift.id);
+                                    });
+                                    p.appendChild(cancelBtn);
+                                }
+                            }
                             
-                            // Adicionar botão X se o presente foi dado pelo usuário atual
-                            if (giftData.donorUUID === userUUID) {
-                                const cancelBtn = document.createElement('button');
-                                cancelBtn.className = 'cancel-gift';
-                                cancelBtn.innerHTML = '<i class="bi bi-x-circle"></i>';
-                                cancelBtn.title = 'Cancelar presente';
-                                cancelBtn.style.display = 'inline';
-                                cancelBtn.addEventListener('click', function(e) {
-                                    e.stopPropagation();
-                                    cancelGift(gift.id);
-                                });
-                                p.appendChild(cancelBtn);
+                            if (link) {
+                                link.textContent = 'Presenteado!';
+                                link.style.backgroundColor = 'var(--color-medium)';
+                                link.style.pointerEvents = 'none';
+                            }
+                        } else {
+                            // Presente disponível
+                            if (p) p.textContent = '';
+                            if (link) {
+                                link.textContent = 'Presentear';
+                                link.style.backgroundColor = 'var(--color-dark)';
+                                link.style.pointerEvents = 'auto';
                             }
                         }
-                        
-                        if (link) {
-                            link.textContent = 'Presenteado!';
-                            link.style.backgroundColor = 'var(--color-medium)';
-                            link.style.pointerEvents = 'none';
-                        }
-                    } else {
-                        // Presente disponível
-                        if (p) p.textContent = '';
-                        if (link) {
-                            link.textContent = 'Presentear';
-                            link.style.backgroundColor = 'var(--color-dark)';
-                            link.style.pointerEvents = 'auto';
-                        }
-                    }
-                });
+                    });
+                } catch (error) {
+                    console.error('Erro ao atualizar status dos presentes:', error);
+                }
             }
 
             function addGiftClickListeners() {
@@ -785,19 +845,18 @@
             }
 
             // Função para cancelar presente
-            function cancelGift(giftId) {
-                const giftsData = loadGiftsData();
-                
-                if (giftsData[giftId] && giftsData[giftId].donorUUID === userUUID) {
-                    delete giftsData[giftId];
-                    saveGiftsData(giftsData);
-                    updateGiftStatus();
+            async function cancelGift(giftId) {
+                const success = await removeGiftFromAPI(giftId, userUUID);
+                if (success) {
+                    await updateGiftStatus();
                     
                     // Confirmação visual
                     const giftElement = document.querySelector(`.gift-link[data-gift-id="${giftId}"]`);
                     if (giftElement) {
                         giftElement.style.backgroundColor = 'var(--color-dark)';
                     }
+                } else {
+                    alert('Erro ao cancelar presente. Tente novamente.');
                 }
             }
 
@@ -806,32 +865,43 @@
                 if (e.target === giftModal) giftModal.style.display = 'none';
             });
             
-            giftForm.addEventListener('submit', function(e) {
+            giftForm.addEventListener('submit', async function(e) {
                 e.preventDefault();
                 const donorName = document.getElementById('giver-name').value;
                 const giftId = selectedGiftInput.value;
                 
                 if (donorName.trim() && giftId) {
-                    const giftsData = loadGiftsData();
+                    // Mostrar loading
+                    const confirmButton = this.querySelector('.confirm');
+                    const originalText = confirmButton.textContent;
+                    confirmButton.textContent = 'Salvando...';
+                    confirmButton.disabled = true;
                     
-                    // Registrar o presente
-                    giftsData[giftId] = {
-                        donorName: donorName.trim(),
-                        donorUUID: userUUID
-                    };
-                    
-                    saveGiftsData(giftsData);
-                    updateGiftStatus();
-                    giftModal.style.display = 'none';
-                    this.reset();
-                    
-                    // Confetes com as cores do tema
-                    confetti({
-                        particleCount: 150,
-                        spread: 90,
-                        origin: { y: 0.6 },
-                        colors: ['#D0DBED', '#ABBEDE', '#859ED4', '#4973BF', '#FFFFFF']
-                    });
+                    try {
+                        const success = await addGiftToAPI(giftId, donorName.trim(), userUUID);
+                        
+                        if (success) {
+                            await updateGiftStatus();
+                            giftModal.style.display = 'none';
+                            this.reset();
+                            
+                            // Confetes com as cores do tema
+                            confetti({
+                                particleCount: 150,
+                                spread: 90,
+                                origin: { y: 0.6 },
+                                colors: ['#D0DBED', '#ABBEDE', '#859ED4', '#4973BF', '#FFFFFF']
+                            });
+                        } else {
+                            alert('Este presente já foi registrado por outra pessoa!');
+                        }
+                    } catch (error) {
+                        alert('Erro ao registrar presente. Tente novamente.');
+                    } finally {
+                        // Restaurar botão
+                        confirmButton.textContent = originalText;
+                        confirmButton.disabled = false;
+                    }
                 }
             });
 
