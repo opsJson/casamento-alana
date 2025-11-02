@@ -431,7 +431,7 @@
         .pix-container {
             max-width: 600px;
             margin: 0 auto;
-            background: linear-gradient(135deg, #32BCAD 0%, #1E7F74 100%);
+            background: linear-gradient(135deg, #8A05BE 0%, #6A0397 100%);
             border-radius: 15px;
             padding: 40px 30px;
             color: white;
@@ -449,6 +449,29 @@
             height: 100%;
             background: rgba(255,255,255,0.1);
             transform: rotate(30deg);
+        }
+
+        .bank-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            background: rgba(255,255,255,0.15);
+            padding: 12px 20px;
+            border-radius: 50px;
+            backdrop-filter: blur(5px);
+        }
+
+        .bank-logo {
+            height: 30px;
+            width: auto;
+            filter: brightness(0) invert(1);
+        }
+
+        .bank-name {
+            font-weight: 600;
+            font-size: 1.1rem;
         }
 
         .pix-icon {
@@ -494,7 +517,7 @@
 
         .copy-pix-btn {
             background: white;
-            color: #1E7F74;
+            color: #8A05BE;
             border: none;
             border-radius: 50px;
             padding: 10px 20px;
@@ -646,6 +669,10 @@
         <!-- NOVA SEÇÃO PIX -->
         <section id="pix-gift">
             <div class="pix-container">
+                <div class="bank-info">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Nubank_logo_2021.svg/1200px-Nubank_logo_2021.svg.png" alt="Nubank" class="bank-logo">
+                    <span class="bank-name">Elielson Pelegrini Sobral</span>
+                </div>
                 <i class="bi bi-qr-code-scan pix-icon"></i>
                 <h2>Presente em PIX</h2>
                 <p class="pix-description">
@@ -654,15 +681,11 @@
                 </p>
                 
                 <div class="pix-key-container">
-                    <div class="pix-key" id="pix-key-value">allana.elielson.casal@email.com</div>
+                    <div class="pix-key" id="pix-key-value">(35) 9.9836-8166</div>
                     <button class="copy-pix-btn" id="copy-pix-btn">
                         <i class="bi bi-clipboard"></i> Copiar
                     </button>
                 </div>
-                
-                <p class="pix-note">
-                    Após realizar o PIX, não é necessário nos avisar. Ficaremos muito gratos pelo seu gesto!
-                </p>
             </div>
         </section>
 
@@ -987,10 +1010,12 @@
 
             // Função para copiar chave PIX
             copyPixBtn.addEventListener('click', function() {
-                const pixKey = pixKeyValue.textContent;
+                const pixKeyWithFormatting = pixKeyValue.textContent;
+                // Remove todos os caracteres não numéricos
+                const pixKeyNumbersOnly = pixKeyWithFormatting.replace(/\D/g, '');
                 
                 // Usando a API Clipboard
-                navigator.clipboard.writeText(pixKey).then(() => {
+                navigator.clipboard.writeText(pixKeyNumbersOnly).then(() => {
                     // Feedback visual
                     const originalText = this.innerHTML;
                     this.innerHTML = '<i class="bi bi-check-lg"></i> Copiado!';
@@ -1001,7 +1026,7 @@
                         particleCount: 80,
                         spread: 70,
                         origin: { y: 0.6 },
-                        colors: ['#32BCAD', '#1E7F74', '#FFFFFF']
+                        colors: ['#8A05BE', '#6A0397', '#FFFFFF']
                     });
                     
                     // Restaurar botão após 2 segundos
