@@ -421,19 +421,108 @@
 			font-weight: 300; 
 		}
 
-		/* Media Queries para Telas Maiores (Desktop) */
-		@media (min-width: 768px) {
-			footer .footer-content {
-				flex-direction: row;
-				justify-content: space-between;
-				align-items: center;
-				text-align: left;
-			}
-			
-			footer .footer-names {
-				margin-bottom: 0;
-			}
-		}
+        /* --- NOVA SEÇÃO PIX --- */
+        #pix-gift {
+            background-color: #f8f9fa;
+            padding: 80px 20px;
+            position: relative;
+        }
+
+        .pix-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #32BCAD 0%, #1E7F74 100%);
+            border-radius: 15px;
+            padding: 40px 30px;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pix-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.1);
+            transform: rotate(30deg);
+        }
+
+        .pix-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .pix-container h2 {
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .pix-container h2::after {
+            background-color: rgba(255,255,255,0.7);
+        }
+
+        .pix-description {
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .pix-key-container {
+            background: rgba(255,255,255,0.15);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 25px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .pix-key {
+            font-family: monospace;
+            font-size: 1.1rem;
+            word-break: break-all;
+            text-align: left;
+            flex: 1;
+            padding-right: 15px;
+        }
+
+        .copy-pix-btn {
+            background: white;
+            color: #1E7F74;
+            border: none;
+            border-radius: 50px;
+            padding: 10px 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .copy-pix-btn:hover {
+            background: #f0f0f0;
+            transform: translateY(-2px);
+        }
+
+        .copy-pix-btn.copied {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .pix-note {
+            font-size: 0.9rem;
+            margin-top: 20px;
+            opacity: 0.9;
+            font-style: italic;
+        }
 
         /* Media Queries para Telas Maiores (Desktop) */
         @media (min-width: 768px) {
@@ -554,6 +643,29 @@
             </div>
         </section>
 
+        <!-- NOVA SEÇÃO PIX -->
+        <section id="pix-gift">
+            <div class="pix-container">
+                <i class="bi bi-qr-code-scan pix-icon"></i>
+                <h2>Presente em PIX</h2>
+                <p class="pix-description">
+                    Se preferir nos presentear de forma prática e moderna, utilize nossa chave PIX. 
+                    O valor fica por sua conta, o que importa é a intenção!
+                </p>
+                
+                <div class="pix-key-container">
+                    <div class="pix-key" id="pix-key-value">allana.elielson.casal@email.com</div>
+                    <button class="copy-pix-btn" id="copy-pix-btn">
+                        <i class="bi bi-clipboard"></i> Copiar
+                    </button>
+                </div>
+                
+                <p class="pix-note">
+                    Após realizar o PIX, não é necessário nos avisar. Ficaremos muito gratos pelo seu gesto!
+                </p>
+            </div>
+        </section>
+
 		<footer>
 			<div class="footer-content">
 				<p class="footer-names">Allana & Elielson</p>
@@ -614,6 +726,8 @@
             const giftForm = document.getElementById('gift-form');
             const cancelButton = document.getElementById('cancel-button');
             const selectedGiftInput = document.getElementById('selected-gift-id');
+            const copyPixBtn = document.getElementById('copy-pix-btn');
+            const pixKeyValue = document.getElementById('pix-key-value');
 
             // --- UUID e localStorage ---
             let userUUID = localStorage.getItem('wedding_user_uuid');
@@ -870,6 +984,36 @@
                     alert('Erro ao cancelar presente. Tente novamente.');
                 }
             }
+
+            // Função para copiar chave PIX
+            copyPixBtn.addEventListener('click', function() {
+                const pixKey = pixKeyValue.textContent;
+                
+                // Usando a API Clipboard
+                navigator.clipboard.writeText(pixKey).then(() => {
+                    // Feedback visual
+                    const originalText = this.innerHTML;
+                    this.innerHTML = '<i class="bi bi-check-lg"></i> Copiado!';
+                    this.classList.add('copied');
+                    
+                    // Confetes com cores temáticas
+                    confetti({
+                        particleCount: 80,
+                        spread: 70,
+                        origin: { y: 0.6 },
+                        colors: ['#32BCAD', '#1E7F74', '#FFFFFF']
+                    });
+                    
+                    // Restaurar botão após 2 segundos
+                    setTimeout(() => {
+                        this.innerHTML = originalText;
+                        this.classList.remove('copied');
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Erro ao copiar: ', err);
+                    alert('Não foi possível copiar a chave PIX. Tente copiar manualmente.');
+                });
+            });
 
             cancelButton.addEventListener('click', () => giftModal.style.display = 'none');
             giftModal.addEventListener('click', (e) => {
