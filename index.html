@@ -421,131 +421,134 @@
 			font-weight: 300; 
 		}
 
-        /* --- NOVA SEÇÃO PIX --- */
-        #pix-gift {
-            background-color: #f8f9fa;
-            padding: 80px 20px;
-            position: relative;
-        }
+      /* --- NOVA SEÇÃO PIX --- */
+		#pix-gift {
+			background-color: #f8f9fa;
+			padding: 80px 20px;
+			position: relative;
+		}
 
-        .pix-container {
-            max-width: 600px;
-            margin: 0 auto;
-            background: linear-gradient(135deg, #8A05BE 0%, #6A0397 100%);
-            border-radius: 15px;
-            padding: 40px 30px;
-            color: white;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            position: relative;
-            overflow: hidden;
-        }
+		.pix-container {
+			max-width: 600px;
+			margin: 0 auto;
+			background: linear-gradient(135deg, #8A05BE 0%, #6A0397 100%);
+			border-radius: 15px;
+			padding: 40px 30px;
+			color: white;
+			box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+			position: relative;
+			overflow: hidden;
+		}
 
-        .pix-container::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 100%;
-            height: 100%;
-            background: rgba(255,255,255,0.1);
-            transform: rotate(30deg);
-        }
+		.pix-container::before {
+			content: '';
+			position: absolute;
+			top: -50%;
+			right: -50%;
+			width: 100%;
+			height: 100%;
+			background: rgba(255,255,255,0.1);
+			transform: rotate(30deg);
+		}
 
-        .bank-info {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 20px;
-            background: rgba(255,255,255,0.15);
-            padding: 12px 20px;
-            border-radius: 50px;
-            backdrop-filter: blur(5px);
-        }
+		.bank-info {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 15px;
+			margin-bottom: 20px;
+			background: rgba(255,255,255,0.15);
+			padding: 12px 20px;
+			border-radius: 50px;
+			backdrop-filter: blur(5px);
+		}
 
-        .bank-logo {
-            height: 30px;
-            width: auto;
-            filter: brightness(0) invert(1);
-        }
+		.bank-logo {
+			height: 30px;
+			width: auto;
+			filter: brightness(0) invert(1);
+		}
 
-        .bank-name {
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
+		.bank-name {
+			font-weight: 600;
+			font-size: 1.1rem;
+		}
 
-        .pix-icon {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            display: block;
-        }
+		.pix-icon {
+			font-size: 4rem;
+			margin-bottom: 20px;
+			display: block;
+		}
 
-        .pix-container h2 {
-            color: white;
-            margin-bottom: 15px;
-        }
+		.pix-container h2 {
+			color: white;
+			margin-bottom: 15px;
+		}
 
-        .pix-container h2::after {
-            background-color: rgba(255,255,255,0.7);
-        }
+		.pix-container h2::after {
+			background-color: rgba(255,255,255,0.7);
+		}
 
-        .pix-description {
-            margin-bottom: 25px;
-            font-size: 1.1rem;
-            line-height: 1.6;
-        }
+		.pix-description {
+			margin-bottom: 25px;
+			font-size: 1.1rem;
+			line-height: 1.6;
+		}
 
-        .pix-key-container {
-            background: rgba(255,255,255,0.15);
-            border-radius: 10px;
-            padding: 15px;
-            margin: 25px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            backdrop-filter: blur(5px);
-        }
+		.pix-key-container {
+			background: rgba(255,255,255,0.15);
+			border-radius: 10px;
+			padding: 20px;
+			margin: 25px 0 15px 0;
+			backdrop-filter: blur(5px);
+			text-align: center;
+		}
 
-        .pix-key {
-            font-family: monospace;
-            font-size: 1.1rem;
-            word-break: break-all;
-            text-align: left;
-            flex: 1;
-            padding-right: 15px;
-        }
+		.pix-key {
+			font-family: monospace;
+			font-size: 1.2rem;
+			word-break: break-all;
+			text-align: center;
+			font-weight: 600;
+		}
 
-        .copy-pix-btn {
-            background: white;
-            color: #8A05BE;
-            border: none;
-            border-radius: 50px;
-            padding: 10px 20px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            white-space: nowrap;
-        }
+		.copy-pix-btn {
+			background: white;
+			color: #8A05BE;
+			border: none;
+			border-radius: 50px;
+			padding: 15px 30px;
+			font-weight: 600;
+			cursor: pointer;
+			transition: all 0.3s;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 10px;
+			width: 100%;
+			max-width: 250px;
+			margin: 0 auto;
+			font-size: 1.1rem;
+		}
 
-        .copy-pix-btn:hover {
-            background: #f0f0f0;
-            transform: translateY(-2px);
-        }
+		.copy-pix-btn:hover {
+			background: #f0f0f0;
+			transform: translateY(-2px);
+			box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+		}
 
-        .copy-pix-btn.copied {
-            background: #4CAF50;
-            color: white;
-        }
+		.copy-pix-btn.copied {
+			background: #4CAF50;
+			color: white;
+		}
 
-        .pix-note {
-            font-size: 0.9rem;
-            margin-top: 20px;
-            opacity: 0.9;
-            font-style: italic;
-        }
+		.pix-note {
+			font-size: 0.9rem;
+			margin-top: 15px;
+			opacity: 0.9;
+			font-style: italic;
+			text-align: center;
+		}
 
         /* Media Queries para Telas Maiores (Desktop) */
         @media (min-width: 768px) {
@@ -643,7 +646,7 @@
                     <h3>Cerimônia e Festa</h3>
                     <p><strong>Data:</strong> 14 de Dezembro de 2025</p>
                     <p><strong>Horário:</strong> 16:00</p>
-                    <p><strong>Endereço:</strong> Insira aqui o endereço do local do evento. Cidade - Estado.</p>
+                    <p><strong>Endereço:</strong> Chácara Martins - Rua Estrada do Cristal</p>
                 </div>
             </div>
         </section>
@@ -651,7 +654,7 @@
         <section id="map">
             <h2>Localização</h2>
             <p>Veja como chegar ao nosso grande dia!</p>
-			<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3693.71639755172!2d-45.9073647!3d-22.21288165!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cbc7f4210c04b3%3A0x85f179030220aba4!2sFaisqueira%2C%20Pouso%20Alegre%20-%20State%20of%20Minas%20Gerais%2C%2037550-000!5e0!3m2!1sen!2sbr!4v1760115706856!5m2!1sen!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+			<iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3694.0493704871033!2d-45.90005982471034!3d-22.2002299797587!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjLCsDEyJzAwLjgiUyA0NcKwNTMnNTEuMCJX!5e0!3m2!1spt-BR!2sbr!4v1762310554304!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </section>
 
         <section id="gifts">
@@ -667,27 +670,31 @@
         </section>
 
         <!-- NOVA SEÇÃO PIX -->
-        <section id="pix-gift">
-            <div class="pix-container">
-                <div class="bank-info">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Nubank_logo_2021.svg/1200px-Nubank_logo_2021.svg.png" alt="Nubank" class="bank-logo">
-                    <span class="bank-name">Elielson Pelegrini Sobral</span>
-                </div>
-                <i class="bi bi-qr-code-scan pix-icon"></i>
-                <h2>Presente em PIX</h2>
-                <p class="pix-description">
-                    Se preferir nos presentear de forma prática e moderna, utilize nossa chave PIX. 
-                    O valor fica por sua conta, o que importa é a intenção!
-                </p>
-                
-                <div class="pix-key-container">
-                    <div class="pix-key" id="pix-key-value">(35) 9.9836-8166</div>
-                    <button class="copy-pix-btn" id="copy-pix-btn">
-                        <i class="bi bi-clipboard"></i> Copiar
-                    </button>
-                </div>
-            </div>
-        </section>
+		<section id="pix-gift">
+			<div class="pix-container">
+				<div class="bank-info">
+					<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Nubank_logo_2021.svg/1200px-Nubank_logo_2021.svg.png" alt="Nubank" class="bank-logo">
+					<span class="bank-name">Elielson Pelegrini Sobral</span>
+				</div>
+				<i class="bi bi-qr-code-scan pix-icon"></i>
+				<h2>Presente em PIX</h2>
+				<p class="pix-description">
+					Se preferir nos presentear de forma prática e moderna, utilize nossa chave PIX. 
+					O valor fica por sua conta, o que importa é a intenção!
+				</p>
+				
+				<div class="pix-key-container">
+					<div class="pix-key" id="pix-key-value">(35) 9.9836-8166</div>
+				</div>
+				<button class="copy-pix-btn" id="copy-pix-btn">
+					<i class="bi bi-clipboard"></i> Copiar Chave PIX
+				</button>
+				
+				<p class="pix-note">
+					Clique no botão acima para copiar a chave PIX e cole em seu aplicativo bancário
+				</p>
+			</div>
+		</section>
 
 		<footer>
 			<div class="footer-content">
@@ -835,28 +842,49 @@
 				{ id: 'airfryer', name: 'Air Fryer', image: 'presentes/airfryer.jpeg' },
 				{ id: 'ferro', name: 'Ferro de Passar', image: 'presentes/ferro.jpeg' },
 				{ id: 'frigideira', name: 'Frigideira', image: 'presentes/frigideira.jpeg' },
-				{ id: 'fruteira', name: 'Fruteira', image: 'presentes/fruteira.jpeg' },
 				{ id: 'king', name: 'Jogo de Cama King', image: 'presentes/king.jpeg' },
 				{ id: 'mop', name: 'Mop de Limpeza', image: 'presentes/mop.jpeg' },
 				{ id: 'panelas', name: 'Jogo de Panelas', image: 'presentes/panelas.jpeg' },
 				{ id: 'sanduicheira', name: 'Sanduicheira', image: 'presentes/sanduicheira.jpeg' },
 				{ id: 'toalhas', name: 'Toalhas', image: 'presentes/toalhas.jpeg' },
-				{ id: 'loucas', name: 'Louças', image: 'presentes/louça.jpeg' },
+				{ id: 'louca', name: 'Louças', image: 'presentes/louca.jpeg' },
 				{ id: 'assadeiras', name: 'Jogo de Assadeiras', image: 'presentes/assadeiras.jpeg' },
+				{ id: 'microondas', name: 'Microondas', image: 'presentes/microondas.jpeg' },
+				{ id: 'americano', name: 'Jogo Americano', image: 'presentes/americano.jpeg' },
+				{ id: 'aspirador', name: 'Aspirador', image: 'presentes/aspirador.jpeg' },
+				{ id: 'boleira', name: 'Boleira', image: 'presentes/boleira.jpeg' },
+				{ id: 'cafeteira', name: 'Cafeteira', image: 'presentes/cafeteira.jpeg' },
+				{ id: 'edredom', name: 'Edredom', image: 'presentes/edredom.jpeg' },
+				{ id: 'escorredor', name: 'Escorredor', image: 'presentes/escorredor.jpeg' },
+				{ id: 'espremedor', name: 'Espremedor de Laranja', image: 'presentes/espremedor.jpeg' },
+				{ id: 'filtro', name: 'Filtro de Água', image: 'presentes/filtro.jpeg' },
+				{ id: 'fogao', name: 'Fogão', image: 'presentes/fogao.jpeg' },
+				{ id: 'geladeira', name: 'Geladeira', image: 'presentes/geladeira.jpeg' },
+				{ id: 'lixeira', name: 'Lixeira', image: 'presentes/lixeira.jpeg' },
+				{ id: 'lavar', name: 'Máquina de Lavar', image: 'presentes/lavar.jpeg' },
+				{ id: 'marinex', name: 'Marinex', image: 'presentes/marinex.jpeg' },
+				{ id: 'mixer', name: 'Mixer', image: 'presentes/mixer.jpeg' },
+				{ id: 'eletrica', name: 'Panela Elétrica', image: 'presentes/eletrica.jpeg' },
+				{ id: 'tabua', name: 'Tábua de Passar', image: 'presentes/tabua.jpeg' },
+				{ id: 'tapeteBanheiro', name: 'Tapete de Banheiro', image: 'presentes/tapeteBanheiro.jpeg' },
+				{ id: 'tapeteCozinha', name: 'Tapete de Cozinha', image: 'presentes/tapeteCozinha.jpeg' },
+				{ id: 'tv', name: 'Televisão', image: 'presentes/tv.jpeg' },
+				{ id: 'ventilador', name: 'Ventilador', image: 'presentes/ventilador.jpeg' },
+				{ id: 'batedeira', name: 'Batedeira', image: 'presentes/batedeira.jpeg' },
             ];
 
             // --- GALERIA DE FOTOS (EDITAR AQUI) ---
             const galleryPhotos = [
+				{ 
+                    src: 'galeria/casal3.jpeg', 
+                    caption: '' 
+                },
+				{ 
+                    src: 'galeria/casal2.jpeg', 
+                    caption: '' 
+                },
                 { 
                     src: 'galeria/casal.jpeg', 
-                    caption: '' 
-                },
-                { 
-                    src: 'galeria/allana.jpeg', 
-                    caption: '' 
-                },
-                { 
-                    src: 'galeria/eli.jpeg', 
                     caption: '' 
                 },
                 { 
